@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import GameButtons from "./components/GameButtons.vue";
 </script>
 
 <template>
-  <HelloWorld />
+  <h1>Genius Game</h1>
+  <GameButtons />
 </template>
 
 <style scoped></style>
