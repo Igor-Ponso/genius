@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const gameArray: number[] = [];
+import { reactive } from "vue";
+
+const gameArray: number[] = reactive([]);
 
 const addValue = (buttonValue: number) => {
   gameArray.push(buttonValue);
@@ -14,6 +16,7 @@ const addValue = (buttonValue: number) => {
     <button @click="addValue(3)">BLUE</button>
     <button @click="addValue(4)">YELLOW</button>
   </article>
+  {{ gameArray }}
 </template>
 
-<style scoped></style>
+<style scoped lang="stylus"></style>

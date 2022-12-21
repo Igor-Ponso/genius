@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "pinia": "^2.0.28",
+    "stylus": "^0.59.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {
