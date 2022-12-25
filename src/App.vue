@@ -6,5 +6,3 @@ import GameButtons from "./components/GameButtons.vue";
   <h1>Genius Game</h1>
   <GameButtons />
 </template>
-
-<style scoped></style>
