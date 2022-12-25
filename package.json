@@ -3,13 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://igor-ponso.github.io/genius/",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8000 --open",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "preview": "vite preview --port 8080 --open"
   },
   "dependencies": {
     "@types/node": "^18.11.17",
+    "gh-pages": "^4.0.0",
     "pinia": "^2.0.28",
     "stylus": "^0.59.0",
     "vue": "^3.2.45"

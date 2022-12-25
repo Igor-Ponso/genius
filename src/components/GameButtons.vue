@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import errorSound from "../assets/sounds/error.mp3";
+import errorSound from "@/assets/sounds/error.mp3";
 import gameButtons from "@/interfaces/GameButtons";
 
 const gameArray: number[] = reactive([]);
