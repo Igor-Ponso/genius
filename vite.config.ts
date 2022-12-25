@@ -22,4 +22,5 @@ export default defineConfig({
     open: false,
     cors: true,
   },
+  base: "/genius/",
 });
