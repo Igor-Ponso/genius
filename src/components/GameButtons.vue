@@ -4,61 +4,98 @@ import errorSound from "../assets/sounds/error.mp3";
 
 const gameArray: number[] = reactive([]);
 const playerArray: number[] = reactive([]);
-const actualPosition = ref(0);
-const gameStart = ref(false);
+const hasGameStart = ref(false);
+const level = ref(0);
+const status = ref("");
 
-const addValue = (buttonValue: number) => {
-  playerArray.push(buttonValue);
-  const soundFile = "sound".concat(buttonValue.toString());
-  console.log(soundFile);
+const startGame = () => {
+  hasGameStart.value = true;
+  status.value = "game started";
+  levelUp();
+};
+
+const levelUp = () => {
+  level.value++;
+  addRandomArrayPosition();
+  repeatGameArray();
+};
+
+const addRandomArrayPosition = () => {
+  gameArray.push(Math.floor(Math.random() * 4));
+};
+
+const repeatGameArray = () => {
+  let delay = 0;
+  gameArray.forEach((arrayPosition) => {
+    setTimeout(() => {
+      playTileSound(arrayPosition);
+    }, delay);
+    delay += 700;
+  });
+};
+
+const playTileSound = (tileValue: number) => {
   new Audio(
-    `https://s3.amazonaws.com/freecodecamp/simonSound${buttonValue + 1}.mp3`
+    `https://s3.amazonaws.com/freecodecamp/simonSound${tileValue + 1}.mp3`
   ).play();
+};
+
+const playErrorSound = () => {
+  new Audio(errorSound).play();
+};
+
+const pushTile = (tileValue: number) => {
+  playerArray.push(tileValue);
+  checkWinLose();
+  playTileSound(tileValue);
+};
+
+//TODO: Refactor! Maybe use array.every()
+const checkWinLose = async () => {
+  for (let i = 0; i < playerArray.length; i++) {
+    if (playerArray[i] !== gameArray[i]) {
+      return gameOver();
+    }
+  }
+  if (JSON.stringify(playerArray) === JSON.stringify(gameArray)) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return nextStep();
+  }
+};
+
+const gameOver = () => {
+  gameArray.length = 0;
+  hasGameStart.value = false;
+  status.value = "Game Over";
+  clearPlayerArray();
+  playErrorSound();
+};
+
+const nextStep = () => {
+  clearPlayerArray();
+  levelUp();
 };
 
 const clearPlayerArray = () => {
   playerArray.length = 0;
 };
-
-const clearGameArray = () => {
-  gameArray.length = 0;
-  gameStart.value = false;
-};
-
-const addRandomArrayPosition = () => {
-  gameArray.push(Math.floor(Math.random() * 4));
-  repeatGameArray();
-};
-
-const repeatGameArray = async () => {
-  gameArray.forEach((num) => setTimeout(() => console.log(num), 1000));
-};
-
-const startGame = () => {
-  gameStart.value = true;
-  addRandomArrayPosition();
-};
-
-const playErrorSound = () => {
-  new Audio(errorSound).play();
-}
 </script>
 
 <template>
+  {{ gameArray }}
+  {{ playerArray }}
+  {{ status }}
+  {{ level }}
   <main>
     <article id="genius-buttons">
-      <button @click="addValue(0)" class="btn__red"></button>
-      <button @click="addValue(1)" class="btn__green"></button>
-      <button @click="addValue(2)" class="btn__blue"></button>
-      <button @click="addValue(3)" class="btn__yellow"></button>
+      <button @click="pushTile(0)" class="btn__red"></button>
+      <button @click="pushTile(1)" class="btn__green"></button>
+      <button @click="pushTile(2)" class="btn__blue"></button>
+      <button @click="pushTile(3)" class="btn__yellow"></button>
     </article>
     <article id="main-buttons">
-      <button v-if="gameStart" @click="clearPlayerArray(), clearGameArray()">
-        Clear
-      </button>
-      <button v-if="!gameStart" @click="startGame">Start Game</button>
-      <button @click="addRandomArrayPosition">Add</button>
-      <button @click="playErrorSound()">Error</button>
+      <button v-if="hasGameStart" @click="gameOver()">Clear</button>
+      <button v-if="!hasGameStart" @click="startGame">Start Game</button>
     </article>
   </main>
 </template>
@@ -69,8 +106,7 @@ main
   flex-direction: column
   gap 2rem
 
-#genius-buttons,
-#main-buttons
+#genius-buttons
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: var(--gap-2)
