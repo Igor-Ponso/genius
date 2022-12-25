@@ -45,18 +45,18 @@ const playErrorSound = () => {
 };
 
 const pushTile = (tileValue: number) => {
-  playerArray.push(tileValue);
-  checkWinLose();
-  playTileSound(tileValue);
+  checkWinLose(tileValue);
 };
 
 //TODO: Refactor! Maybe use array.every()
-const checkWinLose = async () => {
+const checkWinLose = async (tileValue: number) => {
+  playerArray.push(tileValue);
   for (let i = 0; i < playerArray.length; i++) {
     if (playerArray[i] !== gameArray[i]) {
       return gameOver();
     }
   }
+  playTileSound(tileValue);
   if (JSON.stringify(playerArray) === JSON.stringify(gameArray)) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return nextStep();
