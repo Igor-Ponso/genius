@@ -8,6 +8,7 @@ const playerArray: number[] = reactive([]);
 const hasGameStart = ref(false);
 const isRepeating = ref(false);
 const level = ref(0);
+const max_lvl = ref(0);
 const status = ref("");
 
 const startGame = () => {
@@ -18,8 +19,15 @@ const startGame = () => {
 
 const levelUp = () => {
   level.value++;
+  checkMaxLvl();
   addRandomArrayPosition();
   repeatGameArray();
+};
+
+const checkMaxLvl = () => {
+  if (level.value > max_lvl.value) {
+    max_lvl.value = level.value;
+  }
 };
 
 const addRandomArrayPosition = () => {
@@ -106,58 +114,15 @@ const clearPlayerArray = () => {
         ></button>
       </template>
     </article>
+    <article>
+      <p>{{ $t("lvl") }}{{ level }}</p>
+      <p>{{ $t("max_lvl") }} {{ max_lvl }}</p>
+    </article>
     <article id="main-buttons">
-      <button v-if="hasGameStart" @click="gameOver()">Clear</button>
-      <button v-if="!hasGameStart" @click="startGame">Start Game</button>
+      <button v-if="hasGameStart" @click="gameOver()">{{ $t("button.clear")}}</button>
+      <button v-if="!hasGameStart" @click="startGame">{{ $t("button.start_game")}}</button>
     </article>
   </main>
 </template>
 
-<style scoped lang="stylus">
-main
-  display flex
-  flex-direction: column
-  gap 2rem
-
-#genius-buttons
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: var(--gap-2)
-
-#genius-buttons
-  grid-auto-rows: 12.5rem
-
-.btn
-  &__red
-    background var(--color-red-1)
-  and.active,
-  &:hover
-    border none
-    -webkit-box-shadow:0px 0px 55px 10px var(--color-red-2);
-    -moz-box-shadow: 0px 0px 55px 10px var(--color-red-2);
-    box-shadow: 0px 0px 55px 10px var(--color-red-2);
-  &__green
-    background var(--color-green-1)
-    and.active,
-    &:hover
-      border none
-      -webkit-box-shadow:0px 0px 55px 10px var(--color-green-2);
-      -moz-box-shadow: 0px 0px 55px 10px var(--color-green-2);
-      box-shadow: 0px 0px 55px 10px var(--color-green-2);
-  &__blue
-    background var(--color-blue-1)
-    and.active,
-    &:hover
-      border none
-      -webkit-box-shadow:0px 0px 55px 10px var(--color-blue-2);
-      -moz-box-shadow: 0px 0px 55px 10px var(--color-blue-2);
-      box-shadow: 0px 0px 55px 10px var(--color-blue-2);
-  &__yellow
-    background var(--color-yellow-1)
-    and.active,
-    &:hover
-      border none
-      -webkit-box-shadow:0px 0px 55px 10px var(--color-yellow-2);
-      -moz-box-shadow: 0px 0px 55px 10px var(--color-yellow-2);
-      box-shadow: 0px 0px 55px 10px var(--color-yellow-2);
-</style>
+<style scoped lang="stylus" src="./__game_butons.styl" />
