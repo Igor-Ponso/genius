@@ -4,7 +4,7 @@ import GameButtons from "./components/GameButtons.vue";
 
 <template>
   <h1>
-    <p>{{ $t("genius_name") }}</p>
+    {{ $t("genius_name") }}
   </h1>
   <GameButtons />
 </template>
