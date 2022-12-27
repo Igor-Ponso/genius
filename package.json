@@ -12,11 +12,13 @@
     "preview": "vite preview --port 8080 --open"
   },
   "dependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.8.1",
     "@types/node": "^18.11.17",
     "gh-pages": "^4.0.0",
     "pinia": "^2.0.28",
     "stylus": "^0.59.0",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-i18n": "9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
