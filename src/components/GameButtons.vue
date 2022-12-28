@@ -8,7 +8,7 @@ const playerArray: number[] = reactive([]);
 const hasGameStart = ref(false);
 const isRepeating = ref(false);
 const level = ref(0);
-const max_lvl = ref(0);
+const maxLevel = ref(0);
 const status = ref("");
 
 const startGame = () => {
@@ -17,16 +17,18 @@ const startGame = () => {
   levelUp();
 };
 
-const levelUp = () => {
+const levelUp = async () => {
   level.value++;
   checkMaxLvl();
   addRandomArrayPosition();
-  repeatGameArray();
+  console.log("repeating...");
+  Promise.resolve(repeatGameArray());
+  console.log("done");
 };
 
 const checkMaxLvl = () => {
-  if (level.value > max_lvl.value) {
-    max_lvl.value = level.value;
+  if (level.value > maxLevel.value) {
+    maxLevel.value = level.value;
   }
 };
 
@@ -36,20 +38,20 @@ const addRandomArrayPosition = () => {
 
 const repeatGameArray = () => {
   let delay = 0;
-  gameArray.forEach((arrayPosition) => {
-    setTimeout(() => {
-      playTileSound(arrayPosition);
-    }, delay);
-    delay += 700;
+  return new Promise((resolve) => {
+    gameArray.forEach((arrayPosition) => {
+      setTimeout(() => {
+        playTileSound(arrayPosition);
+      }, delay);
+      delay += 700;
+    });
   });
 };
 
 const playTileSound = (tileValue: number) => {
   gameButtons[tileValue].isActive = true;
-  console.log(gameButtons[tileValue], "ativo");
   setTimeout(() => {
     gameButtons[tileValue].isActive = false;
-    console.log(gameButtons[tileValue], "desativo");
   }, 400);
   new Audio(
     `https://s3.amazonaws.com/freecodecamp/simonSound${tileValue + 1}.mp3`
@@ -105,22 +107,22 @@ const clearPlayerArray = () => {
         <button
           @click="pushTile(index)"
           class="btn"
-          :class="[
-            'btn__' + button.name,
-            { disabled: isRepeating, active: button.isActive },
-          ]"
-          :data-index="index"
+          :class="['btn__' + button.name, { active: button.isActive }]"
           :disabled="isRepeating"
         ></button>
       </template>
     </article>
     <article>
       <p>{{ $t("lvl") }}{{ level }}</p>
-      <p>{{ $t("max_lvl") }} {{ max_lvl }}</p>
+      <p>{{ $t("maxLevel") }} {{ maxLevel }}</p>
     </article>
     <article id="main-buttons">
-      <button v-if="hasGameStart" @click="gameOver()">{{ $t("button.clear")}}</button>
-      <button v-if="!hasGameStart" @click="startGame">{{ $t("button.start_game")}}</button>
+      <button v-if="hasGameStart" @click="gameOver()">
+        {{ $t("button.clear") }}
+      </button>
+      <button v-if="!hasGameStart" @click="startGame">
+        {{ $t("button.start_game") }}
+      </button>
     </article>
   </main>
 </template>
