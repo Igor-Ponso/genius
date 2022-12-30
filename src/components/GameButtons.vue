@@ -21,15 +21,11 @@ const levelUp = async () => {
   level.value++;
   checkMaxLvl();
   addRandomArrayPosition();
-  console.log("repeating...");
-  Promise.resolve(repeatGameArray());
-  console.log("done");
+  await Promise.resolve(repeatGameArray());
 };
 
 const checkMaxLvl = () => {
-  if (level.value > maxLevel.value) {
-    maxLevel.value = level.value;
-  }
+  if (level.value > maxLevel.value) maxLevel.value = level.value;
 };
 
 const addRandomArrayPosition = () => {
@@ -113,8 +109,8 @@ const clearPlayerArray = () => {
       </template>
     </article>
     <article>
-      <p>{{ $t("lvl") }}{{ level }}</p>
-      <p>{{ $t("maxLevel") }} {{ maxLevel }}</p>
+      <p>{{ $t("level") }}{{ level }}</p>
+      <p>{{ $t("max_level") }} {{ maxLevel }}</p>
     </article>
     <article id="main-buttons">
       <button v-if="hasGameStart" @click="gameOver()">
