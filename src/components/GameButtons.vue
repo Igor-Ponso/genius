@@ -10,6 +10,7 @@ const isRepeating = ref(false);
 const level = ref(0);
 const maxLevel = ref(0);
 const status = ref("");
+const audioUrl = 'https://s3.amazonaws.com/freecodecamp/simonSound';
 
 const startGame = () => {
   hasGameStart.value = true;
@@ -50,7 +51,7 @@ const playTileSound = (tileValue: number) => {
     gameButtons[tileValue].isActive = false;
   }, 400);
   new Audio(
-    `https://s3.amazonaws.com/freecodecamp/simonSound${tileValue + 1}.mp3`
+    `${audioUrl}${tileValue + 1}.mp3`
   ).play();
 };
 
