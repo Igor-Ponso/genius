@@ -1,9 +1,0 @@
-{
-  "genius_name": "Genius Game",
-  "level": "Level: ",
-  "max_level": "Max level: ",
-  "button": {
-    "clear": "Clear",
-    "start_game": "Start Game"
-  }
-}
