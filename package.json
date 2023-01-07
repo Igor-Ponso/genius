@@ -15,6 +15,7 @@
     "@intlify/unplugin-vue-i18n": "^0.8.1",
     "@types/node": "^18.11.17",
     "gh-pages": "^4.0.0",
+    "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.0.28",
     "stylus": "^0.59.0",
     "vue": "^3.2.45",
