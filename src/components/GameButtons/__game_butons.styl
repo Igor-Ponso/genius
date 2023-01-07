@@ -1,0 +1,61 @@
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#genius-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--gap-2);
+}
+
+#genius-buttons {
+  grid-auto-rows: 12.5rem;
+}
+
+.btn {
+  &__red {
+    background: var(--color-red-1);
+  }
+
+  &.active {
+    border: none;
+    -webkit-box-shadow: 0px 0px 55px 10px var(--color-red-2);
+    -moz-box-shadow: 0px 0px 55px 10px var(--color-red-2);
+    box-shadow: 0px 0px 55px 10px var(--color-red-2);
+  }
+
+  &__green {
+    background: var(--color-green-1);
+
+    &.active {
+      border: none;
+      -webkit-box-shadow: 0px 0px 55px 10px var(--color-green-2);
+      -moz-box-shadow: 0px 0px 55px 10px var(--color-green-2);
+      box-shadow: 0px 0px 55px 10px var(--color-green-2);
+    }
+  }
+
+  &__blue {
+    background: var(--color-blue-1);
+
+    &.active {
+      border: none;
+      -webkit-box-shadow: 0px 0px 55px 10px var(--color-blue-2);
+      -moz-box-shadow: 0px 0px 55px 10px var(--color-blue-2);
+      box-shadow: 0px 0px 55px 10px var(--color-blue-2);
+    }
+  }
+
+  &__yellow {
+    background: var(--color-yellow-1);
+
+    &.active {
+      border: none;
+      -webkit-box-shadow: 0px 0px 55px 10px var(--color-yellow-2);
+      -moz-box-shadow: 0px 0px 55px 10px var(--color-yellow-2);
+      box-shadow: 0px 0px 55px 10px var(--color-yellow-2);
+    }
+  }
+}
