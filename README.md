@@ -1,4 +1,4 @@
-# Pokedex Vue 3
+# SimonGame Vue3
 ![License-Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 <p>
 This project was built using Vue 3 + Vite and Pinia for Store management.
